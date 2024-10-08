@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.ui.theme
+package com.embarkapps.inscribe.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
