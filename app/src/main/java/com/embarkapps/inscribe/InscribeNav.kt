@@ -7,13 +7,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.embarkapps.inscribe.common.Routes.SIGN_IN_SCREEN
+import com.embarkapps.inscribe.common.Screen
 import com.embarkapps.inscribe.presentation.signin.SignInScreen
 
 @Composable
@@ -23,7 +22,7 @@ fun InscribeNav() {
         Scaffold { innerPaddingModifier ->
             NavHost(
                 navController = appState.navController,
-                startDestination = SIGN_IN_SCREEN,
+                startDestination = Screen.SignInScreen.route,
                 modifier = Modifier.padding(innerPaddingModifier)
             ) {
                 inscribeGraph(appState)
@@ -39,7 +38,7 @@ fun rememberAppState(navController: NavHostController = rememberNavController())
     }
 
 fun NavGraphBuilder.inscribeGraph(appState: InscribeState) {
-    composable(SIGN_IN_SCREEN) {
+    composable(route = Screen.SignInScreen.route) {
         SignInScreen()
     }
 }

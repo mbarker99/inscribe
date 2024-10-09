@@ -1,15 +1,11 @@
 package com.embarkapps.inscribe.presentation.signin
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,7 +16,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.embarkapps.inscribe.R
 import com.embarkapps.inscribe.presentation.signin.components.LoginOutlinedTextField
-import com.embarkapps.inscribe.presentation.ui.theme.Purple40
 
 @Composable
 fun SignInScreen(
