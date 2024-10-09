@@ -2,6 +2,9 @@ package com.embarkapps.inscribe.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+
+val background = Color(0xff2c2b3f)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

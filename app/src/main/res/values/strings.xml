@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Inscribe</string>
+
+    <!--Sign In Screen-->
+    <string name="email_placeholder">Email</string>
+    <string name="password_placeholder">Password</string>
+    <string name="login_button">LOGIN</string>
+
+
 </resources>
