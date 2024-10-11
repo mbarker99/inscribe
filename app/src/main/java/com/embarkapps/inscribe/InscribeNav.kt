@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.embarkapps.inscribe.common.Screen
-import com.embarkapps.inscribe.presentation.signin.SignInScreen
+import com.embarkapps.inscribe.presentation.noteslist.NotesListScreen
 
 @Composable
 fun InscribeNav() {
@@ -39,6 +39,6 @@ fun rememberAppState(navController: NavHostController = rememberNavController())
 
 fun NavGraphBuilder.inscribeGraph(appState: InscribeState) {
     composable(route = Screen.SignInScreen.route) {
-        SignInScreen()
+        NotesListScreen()
     }
 }
