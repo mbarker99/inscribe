@@ -1,7 +1,7 @@
 package com.embarkapps.inscribe.di
 
-import com.embarkapps.inscribe.data.local.LocalStorageRepositoryImpl
-import com.embarkapps.inscribe.domain.local.LocalStorageRepository
+import com.embarkapps.inscribe.notes.data.local.LocalStorageRepositoryImpl
+import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

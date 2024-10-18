@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.domain.model
+package com.embarkapps.inscribe.notes.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
