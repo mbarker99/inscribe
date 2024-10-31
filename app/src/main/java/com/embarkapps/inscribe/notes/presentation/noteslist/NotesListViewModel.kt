@@ -1,9 +1,11 @@
 package com.embarkapps.inscribe.notes.presentation.noteslist
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.embarkapps.inscribe.core.presentation.util.Destination
+import com.embarkapps.inscribe.core.presentation.util.Navigator
 import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
+import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,14 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesListViewModel @Inject internal constructor(
-    private val localRepository: LocalStorageRepository
+    private val localRepository: LocalStorageRepository,
+    private val navigator: Navigator
 ) : ViewModel() {
-
-    init {
-        viewModelScope.launch {
-            //localRepository.getAllNotes()
-        }
-    }
 
     private val _state = MutableStateFlow(NotesListState())
     val state = _state
@@ -37,28 +34,35 @@ class NotesListViewModel @Inject internal constructor(
 
     private fun loadNotes() {
         viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    isLoading = true
-                )
-            }
+            _state.update { it.copy(isLoading = true) }
 
             localRepository.getAllNotes()
                 .flowOn(Dispatchers.IO)
                 .collect { notes ->
-                    _state.update {
-                        Log.d("TAG", "state updated: notes=$notes")
-                        it.copy(notes = notes)
-                    }
+                    _state.update { it.copy(notes = notes) }
                 }
         }
     }
 
-    fun onNewNoteClicked() {
+    fun onAction(action: NotesListAction) {
+        when (action) {
+            is NotesListAction.onNewNoteClicked -> {
+                createNewNote()
+            }
+        }
+    }
+
+    fun createNewNote() {
 
     }
 
-    fun onAction(notesListAction: NotesListAction) {
-
+    fun eventHandler(notesUiEvent: NotesUiEvent) {
+        viewModelScope.launch {
+            when (notesUiEvent) {
+                NotesUiEvent.OnNewNoteClicked -> {
+                    navigator.navigate(Destination.EditNoteDestination("-1"))
+                }
+            }
+        }
     }
 }

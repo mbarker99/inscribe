@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.common
+package com.embarkapps.inscribe.core.domain
 
 object Constants {
     const val DATABASE_NAME = "NoteDatabase"
