@@ -11,6 +11,6 @@ data class Note(
     @ColumnInfo(name = "content")
     val content: String?,
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "index")
-    val index: Long = 0L
+    @ColumnInfo(name = "id")
+    val id: Int = -1
 )

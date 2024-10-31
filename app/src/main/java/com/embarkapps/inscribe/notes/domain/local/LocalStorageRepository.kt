@@ -4,6 +4,7 @@ import com.embarkapps.inscribe.notes.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface LocalStorageRepository {
-    fun getAllNotes(): Flow<List<Note>>
+    suspend fun getAllNotes(): Flow<List<Note>>
+    suspend fun getNoteById(id: Int): Flow<Note>
     suspend fun insertAll(vararg notes: Note): Flow<Unit>
 }

@@ -5,6 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.FloatingActionButton
@@ -16,7 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
+import com.embarkapps.inscribe.notes.presentation.noteslist.components.NoteCard
 import com.embarkapps.inscribe.notes.presentation.noteslist.components.previewNote
 import com.example.compose.InscribeTheme
 
@@ -29,7 +34,7 @@ fun NotesListScreen(
 ) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { onEvent(NotesUiEvent.OnNewNoteClicked) }) {
+            FloatingActionButton(onClick = { onEvent(NotesUiEvent.OnAddNoteClicked) }) {
                 Icon(imageVector = Icons.Default.Edit, "Create new note")
             }
         }) {
@@ -43,7 +48,7 @@ fun NotesListScreen(
 
                 )
         }
-        /*LazyVerticalStaggeredGrid(
+        LazyVerticalStaggeredGrid(
             modifier = modifier
                 .fillMaxSize(),
             columns = StaggeredGridCells.Fixed(2),
@@ -56,7 +61,7 @@ fun NotesListScreen(
                 )
             }
 
-        }*/
+        }
     }
 }
 

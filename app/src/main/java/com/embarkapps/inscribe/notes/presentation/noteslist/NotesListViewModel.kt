@@ -2,8 +2,8 @@ package com.embarkapps.inscribe.notes.presentation.noteslist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.embarkapps.inscribe.core.presentation.util.Destination
-import com.embarkapps.inscribe.core.presentation.util.Navigator
+import com.embarkapps.inscribe.core.presentation.util.navigation.Destination
+import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
 import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
 import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,24 +44,18 @@ class NotesListViewModel @Inject internal constructor(
         }
     }
 
-    fun onAction(action: NotesListAction) {
-        when (action) {
-            is NotesListAction.onNewNoteClicked -> {
-                createNewNote()
-            }
-        }
-    }
-
-    fun createNewNote() {
-
-    }
-
     fun eventHandler(notesUiEvent: NotesUiEvent) {
         viewModelScope.launch {
             when (notesUiEvent) {
-                NotesUiEvent.OnNewNoteClicked -> {
-                    navigator.navigate(Destination.EditNoteDestination("-1"))
+                NotesUiEvent.OnAddNoteClicked -> {
+                    navigator.navigate(Destination.EditNoteDestination(-1))
                 }
+
+                is NotesUiEvent.OnNoteClicked -> {
+                    navigator.navigate(Destination.EditNoteDestination(notesUiEvent.note.id))
+                }
+
+                else -> {}
             }
         }
     }

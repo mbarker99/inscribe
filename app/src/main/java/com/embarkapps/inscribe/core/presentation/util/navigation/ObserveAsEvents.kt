@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.core.presentation.util
+package com.embarkapps.inscribe.core.presentation.util.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

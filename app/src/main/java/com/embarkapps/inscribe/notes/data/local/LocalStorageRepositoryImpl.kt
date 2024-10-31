@@ -1,6 +1,6 @@
 package com.embarkapps.inscribe.notes.data.local
 
-import com.embarkapps.inscribe.db.NoteDatabase
+import com.embarkapps.inscribe.notes.data.local.db.NoteDatabase
 import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
 import com.embarkapps.inscribe.notes.domain.model.Note
 import kotlinx.coroutines.flow.Flow
@@ -10,9 +10,13 @@ import javax.inject.Inject
 class LocalStorageRepositoryImpl @Inject constructor(
     private val db: NoteDatabase
 ) : LocalStorageRepository {
-    override fun getAllNotes(): Flow<List<Note>> = flow {
+    override suspend fun getAllNotes(): Flow<List<Note>> = flow {
         emit(db.noteDao().getAllNotes())
         }
+
+    override suspend fun getNoteById(id: Int): Flow<Note> = flow {
+        emit(db.noteDao().getNoteByIndex(id))
+    }
 
     override suspend fun insertAll(vararg notes: Note): Flow<Unit> = flow {
             db.noteDao().insertAll()

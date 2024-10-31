@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.db
+package com.embarkapps.inscribe.notes.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

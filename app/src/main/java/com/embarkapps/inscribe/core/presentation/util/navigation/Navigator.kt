@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.core.presentation.util
+package com.embarkapps.inscribe.core.presentation.util.navigation
 
 import androidx.navigation.NavOptionsBuilder
 import kotlinx.coroutines.flow.Flow

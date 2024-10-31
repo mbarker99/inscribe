@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.embarkapps.inscribe.core.presentation.util.Navigator
+import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
 import com.example.compose.InscribeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -11,10 +11,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.embarkapps.inscribe.core.presentation.util.Destination
-import com.embarkapps.inscribe.core.presentation.util.NavigationAction
-import com.embarkapps.inscribe.core.presentation.util.Navigator
-import com.embarkapps.inscribe.core.presentation.util.ObserveAsEvents
+import androidx.navigation.toRoute
+import com.embarkapps.inscribe.core.presentation.util.navigation.Destination
+import com.embarkapps.inscribe.core.presentation.util.navigation.NavigationAction
+import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
+import com.embarkapps.inscribe.core.presentation.util.navigation.ObserveAsEvents
 import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteScreen
 import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteViewModel
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListScreen
@@ -51,8 +52,10 @@ fun InscribeNav(navigator: Navigator) {
                 }
                 composable<Destination.EditNoteDestination> {
                     val viewModel = hiltViewModel<EditNoteViewModel>()
+                    val arguments = it.toRoute<Destination.EditNoteDestination>()
                     EditNoteScreen(
                         state = viewModel.state.collectAsStateWithLifecycle().value,
+                        onEvent = viewModel::eventHandler,
                         modifier = Modifier
                     )
                 }

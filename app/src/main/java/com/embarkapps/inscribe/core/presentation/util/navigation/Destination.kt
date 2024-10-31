@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.core.presentation.util
+package com.embarkapps.inscribe.core.presentation.util.navigation
 
 import kotlinx.serialization.Serializable
 
@@ -11,5 +11,5 @@ sealed interface Destination {
     data object NotesListDestination : Destination
 
     @Serializable
-    data class EditNoteDestination(val id: String) : Destination
+    data class EditNoteDestination(val id: Int) : Destination
 }

@@ -21,6 +21,7 @@ import com.example.compose.InscribeTheme
 @Composable
 fun NoteCard(
     note: Note,
+
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -69,5 +70,5 @@ fun NoteCardPreview(modifier: Modifier = Modifier) {
 internal val previewNote = Note(
     title = "Hello notes!",
     content = "This is a note! It says things that a note would say!",
-    index = 1
+    id = 1
 )
