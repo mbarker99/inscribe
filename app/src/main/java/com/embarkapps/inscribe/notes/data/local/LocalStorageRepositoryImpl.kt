@@ -18,7 +18,5 @@ class LocalStorageRepositoryImpl @Inject constructor(
         emit(db.noteDao().getNoteByIndex(id))
     }
 
-    override suspend fun insertAll(vararg notes: Note): Flow<Unit> = flow {
-            db.noteDao().insertAll()
-        }
+    override suspend fun insertAll(vararg notes: Note) = db.noteDao().insertAll(*notes)
 }

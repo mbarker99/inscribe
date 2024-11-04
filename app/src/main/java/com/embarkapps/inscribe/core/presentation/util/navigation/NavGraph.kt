@@ -1,9 +1,10 @@
-package com.embarkapps.inscribe
+package com.embarkapps.inscribe.core.presentation.util.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -11,18 +12,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.embarkapps.inscribe.core.presentation.util.navigation.Destination
-import com.embarkapps.inscribe.core.presentation.util.navigation.NavigationAction
-import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
-import com.embarkapps.inscribe.core.presentation.util.navigation.ObserveAsEvents
 import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteScreen
 import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteViewModel
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListScreen
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListViewModel
 
 @Composable
-fun InscribeNav(navigator: Navigator) {
+fun NavGraph(navigator: Navigator) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddingModifier ->
         val navController = rememberNavController()
 
@@ -44,17 +40,18 @@ fun InscribeNav(navigator: Navigator) {
             navigation<Destination.NotesGraph>(startDestination = Destination.NotesListDestination) {
                 composable<Destination.NotesListDestination> {
                     val viewModel = hiltViewModel<NotesListViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
                     NotesListScreen(
-                        state = viewModel.state.collectAsStateWithLifecycle().value,
+                        state = state,
                         onEvent = viewModel::eventHandler,
                         modifier = Modifier
                     )
                 }
                 composable<Destination.EditNoteDestination> {
                     val viewModel = hiltViewModel<EditNoteViewModel>()
-                    val arguments = it.toRoute<Destination.EditNoteDestination>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
                     EditNoteScreen(
-                        state = viewModel.state.collectAsStateWithLifecycle().value,
+                        state = state,
                         onEvent = viewModel::eventHandler,
                         modifier = Modifier
                     )

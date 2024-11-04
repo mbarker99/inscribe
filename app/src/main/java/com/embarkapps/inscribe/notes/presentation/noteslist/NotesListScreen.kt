@@ -37,7 +37,8 @@ fun NotesListScreen(
             FloatingActionButton(onClick = { onEvent(NotesUiEvent.OnAddNoteClicked) }) {
                 Icon(imageVector = Icons.Default.Edit, "Create new note")
             }
-        }) {
+        }
+    ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -45,7 +46,6 @@ fun NotesListScreen(
         ) {
             Text(
                 text = "NOTES LIST SCREEN",
-
                 )
         }
         LazyVerticalStaggeredGrid(
