@@ -5,7 +5,7 @@ import com.embarkapps.inscribe.notes.domain.model.Note
 sealed interface NotesUiEvent {
     // Notes List
     data object OnAddNoteClicked : NotesUiEvent
-    data class OnNoteClicked(val note: Note) : NotesUiEvent
+    data class OnNoteClicked(val id: Int) : NotesUiEvent
 
     // Edit Note
     data class OnNoteTitleChanged(val title: String) : NotesUiEvent

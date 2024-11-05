@@ -1,13 +1,17 @@
 package com.embarkapps.inscribe.notes.presentation.editnote
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
 import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
 import com.embarkapps.inscribe.notes.domain.model.Note
 import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -16,11 +20,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditNoteViewModel @Inject internal constructor(
-    private val localRepository: LocalStorageRepository
+    private val localRepository: LocalStorageRepository,
+    private val navigator: Navigator
 ) : ViewModel() {
     private val _state = MutableStateFlow(EditNoteState())
     val state = _state
-        .onStart { loadSelectedCoin() }
+        .onStart { loadSelectedCoin(_state.value.selectedNoteId) }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
@@ -55,24 +60,31 @@ class EditNoteViewModel @Inject internal constructor(
     }
 
     private fun saveNote(note: Note) {
+        if (note.title.isNotEmpty() && note.content.isNotEmpty())
         viewModelScope.launch {
             localRepository.insertAll(note)
+            navigator.navigateUp()
+            Log.d("EditNoteViewModel", "saveNote(${note})")
+        } else {
+            Log.d("EditNoteViewModel", "Note empty. Not saved.")
         }
     }
 
-    private fun loadSelectedCoin() {
-        /*  if (_state.value.selectedNoteId == -1 && _state.value.selectedNote == null) {
-              Log.d("EDITNOTEVIEWMODEL", "It should show a new note here.")
-          } else {
-              viewModelScope.launch {
-                  _state.update { it.copy(isLoading = true) }
-
-                  localRepository.getNoteById(id)
-                      .flowOn(Dispatchers.IO)
-                      .collect { note ->
-                          _state.update { it.copy(selectedNote = note) }
-                      }
-              }
-          }*/
+    private fun loadSelectedCoin(id: Int) {
+        Log.d("EditNoteViewModel", "selectedNoteId: $id")
+        if (_state.value.selectedNoteId != -1) {
+            viewModelScope.launch {
+                localRepository.getNoteById(id)
+                    .flowOn(Dispatchers.IO)
+                    .collect { note ->
+                        _state.update {
+                            it.copy(
+                                title = note.title,
+                                content = note.content
+                            )
+                        }
+                    }
+            }
+        }
     }
 }

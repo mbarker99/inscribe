@@ -52,7 +52,7 @@ class NotesListViewModel @Inject internal constructor(
                 }
 
                 is NotesUiEvent.OnNoteClicked -> {
-                    navigator.navigate(Destination.EditNoteDestination(notesUiEvent.note.id))
+                    navigator.navigate(Destination.EditNoteDestination(notesUiEvent.id))
                 }
                 else -> {}
             }

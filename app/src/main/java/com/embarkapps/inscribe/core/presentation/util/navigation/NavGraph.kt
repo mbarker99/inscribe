@@ -27,7 +27,6 @@ fun NavGraph(navigator: Navigator) {
                 is NavigationAction.Navigate -> navController.navigate(action.destination) {
                     action.navOptions(this)
                 }
-
                 NavigationAction.NavigateUp -> navController.navigateUp()
             }
         }
@@ -49,9 +48,11 @@ fun NavGraph(navigator: Navigator) {
                 }
                 composable<Destination.EditNoteDestination> {
                     val viewModel = hiltViewModel<EditNoteViewModel>()
+                    val noteId = it.arguments
                     val state by viewModel.state.collectAsStateWithLifecycle()
+                    val stateWithId = state.copy(selectedNoteId = noteId?.getInt("id") ?: -1)
                     EditNoteScreen(
-                        state = state,
+                        state = stateWithId,
                         onEvent = viewModel::eventHandler,
                         modifier = Modifier
                     )
