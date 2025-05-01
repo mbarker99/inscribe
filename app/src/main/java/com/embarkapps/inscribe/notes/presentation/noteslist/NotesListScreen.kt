@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.embarkapps.inscribe.notes.presentation.NotesState
 import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
 import com.embarkapps.inscribe.notes.presentation.noteslist.components.NoteCard
 import com.embarkapps.inscribe.notes.presentation.noteslist.components.previewNote
@@ -28,7 +29,7 @@ import com.example.compose.InscribeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NotesListScreen(
-    state: NotesListState,
+    state: NotesState,
     onEvent: (NotesUiEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -50,7 +51,9 @@ fun NotesListScreen(
             items(state.notes) { note ->
                 NoteCard(
                     note = note,
-                    onClick = { onEvent(NotesUiEvent.OnNoteClicked(note.id)) }
+                    onClick = {
+                        onEvent(NotesUiEvent.OnNoteClicked(note))
+                    }
                 )
             }
 
@@ -63,7 +66,7 @@ fun NotesListScreen(
 fun NotesListScreenPreview(modifier: Modifier = Modifier) {
     InscribeTheme {
         NotesListScreen(
-            state = NotesListState(
+            state = NotesState(
                 isLoading = false,
                 notes = (1..100).map {
                     previewNote.copy()

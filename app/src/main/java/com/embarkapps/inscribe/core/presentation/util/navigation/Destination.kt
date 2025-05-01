@@ -11,5 +11,5 @@ sealed interface Destination {
     data object NotesListDestination : Destination
 
     @Serializable
-    data class EditNoteDestination(val id: Int) : Destination
+    data object EditNoteDestination : Destination
 }

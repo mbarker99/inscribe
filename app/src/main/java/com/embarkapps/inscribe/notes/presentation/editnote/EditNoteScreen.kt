@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.embarkapps.inscribe.notes.domain.model.Note
+import com.embarkapps.inscribe.notes.presentation.NotesState
 import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
 import com.embarkapps.inscribe.notes.presentation.noteslist.components.previewNote
 import com.example.compose.InscribeTheme
@@ -31,7 +32,7 @@ import com.example.compose.InscribeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditNoteScreen(
-    state: EditNoteState,
+    state: NotesState,
     onEvent: (NotesUiEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -51,6 +52,7 @@ fun EditNoteScreen(
         fontWeight = FontWeight.Bold
     )
 
+    val note: Note = state.selectedNote ?: Note()
     Scaffold(
         modifier = modifier
             .fillMaxSize(),
@@ -62,8 +64,8 @@ fun EditNoteScreen(
                             onEvent(
                                 NotesUiEvent.OnNoteSaved(
                                     Note(
-                                        title = state.title,
-                                        content = state.content
+                                        title = note.title,
+                                        content = note.content
                                     )
                                 )
                             )
@@ -93,7 +95,7 @@ fun EditNoteScreen(
                     )
                 },
                 textStyle = titleTextStyle,
-                value = state.title,
+                value = note.title,
                 onValueChange = { onEvent(NotesUiEvent.OnNoteTitleChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = textFieldColors
@@ -106,13 +108,15 @@ fun EditNoteScreen(
                         modifier = Modifier.padding(0.dp),
                     )
                 },
-                value = state.content,
+                value = note.content,
                 onValueChange = { onEvent(NotesUiEvent.OnNoteContentChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = textFieldColors
             )
         }
     }
+
+
 }
 
 @PreviewLightDark
@@ -120,9 +124,8 @@ fun EditNoteScreen(
 fun EditNoteScreenPreview(modifier: Modifier = Modifier) {
     InscribeTheme {
         EditNoteScreen(
-            state = EditNoteState(
-                title = previewNote.title,
-                content = previewNote.content
+            state = NotesState(
+                selectedNote = previewNote
             ),
             onEvent = { },
             modifier = Modifier

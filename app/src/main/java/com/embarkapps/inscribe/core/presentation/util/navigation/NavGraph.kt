@@ -13,7 +13,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteScreen
-import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteViewModel
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListScreen
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListViewModel
 
@@ -21,6 +20,10 @@ import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListViewModel
 fun NavGraph(navigator: Navigator) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddingModifier ->
         val navController = rememberNavController()
+        val viewModel = hiltViewModel<NotesListViewModel>()
+        val state by viewModel.state.collectAsStateWithLifecycle()
+
+
 
         ObserveAsEvents(flow = navigator.navigationActions) { action ->
             when (action) {
@@ -38,8 +41,6 @@ fun NavGraph(navigator: Navigator) {
         ) {
             navigation<Destination.NotesGraph>(startDestination = Destination.NotesListDestination) {
                 composable<Destination.NotesListDestination> {
-                    val viewModel = hiltViewModel<NotesListViewModel>()
-                    val state by viewModel.state.collectAsStateWithLifecycle()
                     NotesListScreen(
                         state = state,
                         onEvent = viewModel::eventHandler,
@@ -47,12 +48,8 @@ fun NavGraph(navigator: Navigator) {
                     )
                 }
                 composable<Destination.EditNoteDestination> {
-                    val viewModel = hiltViewModel<EditNoteViewModel>()
-                    val noteId = it.arguments
-                    val state by viewModel.state.collectAsStateWithLifecycle()
-                    val stateWithId = state.copy(selectedNoteId = noteId?.getInt("id") ?: -1)
                     EditNoteScreen(
-                        state = stateWithId,
+                        state = state,
                         onEvent = viewModel::eventHandler,
                         modifier = Modifier
                     )
