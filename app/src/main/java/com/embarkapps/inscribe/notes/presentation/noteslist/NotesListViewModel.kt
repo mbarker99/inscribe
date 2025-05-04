@@ -51,6 +51,7 @@ class NotesListViewModel @Inject internal constructor(
         viewModelScope.launch {
             when (notesUiAction) {
                 NotesUiAction.OnAddNoteClicked -> {
+                    _state.update { it.copy(selectedNote = Note()) }
                     navigator.navigate(Destination.EditNoteDestination)
                 }
 
@@ -80,8 +81,6 @@ class NotesListViewModel @Inject internal constructor(
                     _state.update { it.copy(selectedNote = null) }
                     navigator.navigateUp()
                 }
-
-                else -> {}
             }
         }
     }

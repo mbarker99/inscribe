@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import com.embarkapps.inscribe.notes.domain.model.Note
 import com.embarkapps.inscribe.notes.presentation.NotesState
 import com.embarkapps.inscribe.notes.presentation.NotesUiAction
-import com.embarkapps.inscribe.notes.presentation.noteslist.components.previewNote
 import com.example.compose.InscribeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,8 +55,7 @@ fun EditNoteScreen(
         fontWeight = FontWeight.Bold
     )
 
-    val emptyNote = Note()
-    val note: Note = state.selectedNote ?: emptyNote
+    val note: Note = state.selectedNote ?: Note()
     if (state.isLoading) {
         Box(
             modifier = modifier
@@ -70,6 +70,9 @@ fun EditNoteScreen(
                 .fillMaxSize(),
             topBar = {
                 TopAppBar(
+                    actions = {
+                        Icon(Icons.Default.MoreVert, "Overflow")
+                    },
                     navigationIcon = {
                         IconButton(
                             onClick = {
@@ -113,11 +116,12 @@ fun EditNoteScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = textFieldColors
                 )
+                HorizontalDivider()
 
                 TextField(
                     placeholder = {
                         Text(
-                            text = "Note",
+                            text = "Content",
                             modifier = Modifier.padding(0.dp),
                         )
                     },
@@ -131,7 +135,6 @@ fun EditNoteScreen(
     }
 
 
-
 }
 
 @PreviewLightDark
@@ -140,7 +143,7 @@ fun EditNoteScreenPreview(modifier: Modifier = Modifier) {
     InscribeTheme {
         EditNoteScreen(
             state = NotesState(
-                selectedNote = previewNote
+                selectedNote = null
             ),
             onEvent = { },
             modifier = Modifier

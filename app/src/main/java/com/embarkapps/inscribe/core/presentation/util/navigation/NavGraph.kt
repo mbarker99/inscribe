@@ -1,7 +1,7 @@
 package com.embarkapps.inscribe.core.presentation.util.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,9 +16,10 @@ import com.embarkapps.inscribe.notes.presentation.editnote.EditNoteScreen
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListScreen
 import com.embarkapps.inscribe.notes.presentation.noteslist.NotesListViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NavGraph(navigator: Navigator) {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPaddingModifier ->
+    Scaffold(modifier = Modifier.fillMaxSize()) {
         val navController = rememberNavController()
         val viewModel = hiltViewModel<NotesListViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
@@ -37,7 +38,6 @@ fun NavGraph(navigator: Navigator) {
         NavHost(
             navController = navController,
             startDestination = navigator.startDestination,
-            modifier = Modifier.padding(innerPaddingModifier)
         ) {
             navigation<Destination.NotesGraph>(startDestination = Destination.NotesListDestination) {
                 composable<Destination.NotesListDestination> {
