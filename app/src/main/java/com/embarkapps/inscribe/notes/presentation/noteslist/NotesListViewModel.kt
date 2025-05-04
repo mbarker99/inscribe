@@ -8,7 +8,7 @@ import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
 import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
 import com.embarkapps.inscribe.notes.domain.model.Note
 import com.embarkapps.inscribe.notes.presentation.NotesState
-import com.embarkapps.inscribe.notes.presentation.NotesUiEvent
+import com.embarkapps.inscribe.notes.presentation.NotesUiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,42 +42,43 @@ class NotesListViewModel @Inject internal constructor(
             localRepository.getAllNotes()
                 .flowOn(Dispatchers.IO)
                 .collect { notes ->
-                    _state.update { it.copy(notes = notes) }
+                    _state.update { it.copy(isLoading = false, notes = notes) }
                 }
         }
     }
 
-    fun eventHandler(notesUiEvent: NotesUiEvent) {
+    fun eventHandler(notesUiAction: NotesUiAction) {
         viewModelScope.launch {
-            when (notesUiEvent) {
-                NotesUiEvent.OnAddNoteClicked -> {
+            when (notesUiAction) {
+                NotesUiAction.OnAddNoteClicked -> {
                     navigator.navigate(Destination.EditNoteDestination)
                 }
 
-                is NotesUiEvent.OnNoteClicked -> {
-                    _state.update { it.copy(selectedNote = notesUiEvent.selectedNote) }
-                    Log.d("NotesListViewModel", "selectedNote = ${notesUiEvent.selectedNote}")
+                is NotesUiAction.OnNoteClicked -> {
+                    _state.update { it.copy(selectedNote = notesUiAction.selectedNote) }
                     navigator.navigate(Destination.EditNoteDestination)
                 }
 
-                is NotesUiEvent.OnNoteTitleChanged -> {
+                is NotesUiAction.OnNoteTitleChanged -> {
                     _state.update {
                         it.copy(
-                            selectedNote = state.value.selectedNote?.copy(title = notesUiEvent.title)
+                            selectedNote = state.value.selectedNote?.copy(title = notesUiAction.title)
                         )
                     }
                 }
 
-                is NotesUiEvent.OnNoteContentChanged -> {
+                is NotesUiAction.OnNoteContentChanged -> {
                     _state.update {
                         it.copy(
-                            selectedNote = state.value.selectedNote?.copy(content = notesUiEvent.content)
+                            selectedNote = state.value.selectedNote?.copy(content = notesUiAction.content)
                         )
                     }
                 }
 
-                is NotesUiEvent.OnNoteSaved -> {
-                    saveNote(notesUiEvent.note)
+                is NotesUiAction.OnBackPressed -> {
+                    saveNote(notesUiAction.note)
+                    _state.update { it.copy(selectedNote = null) }
+                    navigator.navigateUp()
                 }
 
                 else -> {}
@@ -88,13 +89,10 @@ class NotesListViewModel @Inject internal constructor(
     private fun saveNote(note: Note) {
         viewModelScope.launch {
             if (note.title.isNotEmpty() && note.content.isNotEmpty()) {
-                localRepository.insertAll(note)
-                navigator.navigateUp()
-                _state.update { it.copy(selectedNote = null) }
+                localRepository.upsert(note)
                 Log.d("EditNoteViewModel", "saveNote(${note})")
+                loadNotes()
             } else {
-                navigator.navigateUp()
-                _state.update { it.copy(selectedNote = null) }
                 Log.d("EditNoteViewModel", "Note empty. Not saved.")
             }
         }

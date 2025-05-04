@@ -15,5 +15,5 @@ interface NoteDao {
     suspend fun getNoteByIndex(id: Int): Note
 
     @Upsert
-    suspend fun insertAll(vararg notes: Note)
+    suspend fun upsert(note: Note)
 }

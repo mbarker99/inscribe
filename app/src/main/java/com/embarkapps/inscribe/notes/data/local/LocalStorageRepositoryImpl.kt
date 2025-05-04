@@ -18,5 +18,5 @@ class LocalStorageRepositoryImpl @Inject constructor(
         emit(db.noteDao().getNoteByIndex(id))
     }
 
-    override suspend fun insertAll(vararg notes: Note) = db.noteDao().insertAll(*notes)
+    override suspend fun upsert(note: Note) = db.noteDao().upsert(note)
 }
