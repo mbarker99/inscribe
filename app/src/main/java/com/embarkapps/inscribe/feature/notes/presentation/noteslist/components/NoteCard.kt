@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.notes.presentation.noteslist.components
+package com.embarkapps.inscribe.feature.notes.presentation.noteslist.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.embarkapps.inscribe.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
 import com.example.compose.InscribeTheme
 
 @Composable

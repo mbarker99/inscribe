@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.notes.presentation.editnote
+package com.embarkapps.inscribe.feature.notes.presentation.editnote
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,9 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.embarkapps.inscribe.notes.domain.model.Note
-import com.embarkapps.inscribe.notes.presentation.NotesState
-import com.embarkapps.inscribe.notes.presentation.NotesUiAction
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.presentation.NotesState
+import com.embarkapps.inscribe.feature.notes.presentation.NotesUiAction
 import com.example.compose.InscribeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

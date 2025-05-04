@@ -1,10 +1,10 @@
-package com.embarkapps.inscribe.notes.data.local.db
+package com.embarkapps.inscribe.feature.notes.data.local.db
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.embarkapps.inscribe.core.domain.Constants
-import com.embarkapps.inscribe.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
 
 @Dao
 interface NoteDao {

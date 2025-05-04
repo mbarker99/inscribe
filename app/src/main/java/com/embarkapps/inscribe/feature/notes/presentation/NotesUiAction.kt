@@ -1,6 +1,6 @@
-package com.embarkapps.inscribe.notes.presentation
+package com.embarkapps.inscribe.feature.notes.presentation
 
-import com.embarkapps.inscribe.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
 
 sealed interface NotesUiAction {
     // Notes List

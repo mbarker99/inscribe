@@ -1,8 +1,8 @@
-package com.embarkapps.inscribe.notes.data.local
+package com.embarkapps.inscribe.feature.notes.data.local
 
-import com.embarkapps.inscribe.notes.data.local.db.NoteDatabase
-import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
-import com.embarkapps.inscribe.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.data.local.db.NoteDatabase
+import com.embarkapps.inscribe.feature.notes.domain.local.LocalStorageRepository
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

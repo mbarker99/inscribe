@@ -1,14 +1,14 @@
-package com.embarkapps.inscribe.notes.presentation.noteslist
+package com.embarkapps.inscribe.feature.notes.presentation.noteslist
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.embarkapps.inscribe.core.presentation.util.navigation.Destination
 import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
-import com.embarkapps.inscribe.notes.domain.local.LocalStorageRepository
-import com.embarkapps.inscribe.notes.domain.model.Note
-import com.embarkapps.inscribe.notes.presentation.NotesState
-import com.embarkapps.inscribe.notes.presentation.NotesUiAction
+import com.embarkapps.inscribe.feature.notes.domain.local.LocalStorageRepository
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.presentation.NotesState
+import com.embarkapps.inscribe.feature.notes.presentation.NotesUiAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,6 +36,7 @@ class NotesListViewModel @Inject internal constructor(
         )
 
     private fun loadNotes() {
+        Log.d("TAG", "EditNotesScreen: loadNotes()")
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
 
@@ -77,9 +78,9 @@ class NotesListViewModel @Inject internal constructor(
                 }
 
                 is NotesUiAction.OnBackPressed -> {
-                    saveNote(notesUiAction.note)
-                    _state.update { it.copy(selectedNote = null) }
+                    _state.update { it.copy(isLoading = true, selectedNote = null) }
                     navigator.navigateUp()
+                    saveNote(notesUiAction.note)
                 }
             }
         }

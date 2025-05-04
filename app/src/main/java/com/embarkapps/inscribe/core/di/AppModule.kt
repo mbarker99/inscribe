@@ -1,4 +1,4 @@
-package com.embarkapps.inscribe.di
+package com.embarkapps.inscribe.core.di
 
 import android.content.Context
 import androidx.room.Room
@@ -6,8 +6,8 @@ import com.embarkapps.inscribe.core.domain.Constants
 import com.embarkapps.inscribe.core.presentation.util.navigation.DefaultNavigator
 import com.embarkapps.inscribe.core.presentation.util.navigation.Destination
 import com.embarkapps.inscribe.core.presentation.util.navigation.Navigator
-import com.embarkapps.inscribe.notes.data.local.db.NoteDao
-import com.embarkapps.inscribe.notes.data.local.db.NoteDatabase
+import com.embarkapps.inscribe.feature.notes.data.local.db.NoteDao
+import com.embarkapps.inscribe.feature.notes.data.local.db.NoteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

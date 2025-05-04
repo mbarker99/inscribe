@@ -1,6 +1,6 @@
-package com.embarkapps.inscribe.notes.domain.local
+package com.embarkapps.inscribe.feature.notes.domain.local
 
-import com.embarkapps.inscribe.notes.domain.model.Note
+import com.embarkapps.inscribe.feature.notes.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface LocalStorageRepository {
